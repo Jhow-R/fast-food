@@ -1,4 +1,6 @@
 using FastFood.Data.Context;
+using FastFood.Data.Repository;
+using FastFood.Data.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +31,10 @@ namespace FastFood
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // AddTransient: não necessitamos manter estado de nada dentro dele, ou seja, a cada injeção, será uma nova instância resolvida
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            services.AddTransient<ILancheRepository, LancheRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
