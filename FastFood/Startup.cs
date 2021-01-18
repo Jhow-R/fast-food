@@ -28,7 +28,10 @@ namespace FastFood
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvc(); -- Versão 3.1
-            services.AddControllersWithViews();
+
+            // Habilitar refreshing após mudanças na view
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
+
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

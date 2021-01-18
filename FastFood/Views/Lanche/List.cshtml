@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FastFood.Models.Lanche>
+
+@{
+    ViewData["Title"] = ViewData["Lanche"];
+    ViewData["Title"] = ViewBag.Lanche;
+}
+
+<h1>Todos os lanches</h1>
+
+@foreach (var lanche in Model)
+{
+    <p>Lanche: @lanche.Nome </p>
+    <p><img src="@lanche.ImagemUrl" alt="Foto do lanche" class="objectImage" /></p>
+    <p>Preço: @lanche.Preco.ToString("C")</p> 
+}
