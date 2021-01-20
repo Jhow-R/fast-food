@@ -9,14 +9,6 @@
 
 @foreach (var lanche in Model.Lanches)
 {
-    <div class="col-6">
-        <div class="img-thumbnail text-center">
-            <img src="@lanche.ImagemUrl" alt="Foto do lanche" class="objectImage" />
-        </div>
-        <div class="figure-caption">
-            <p class="float-right">Preço: @lanche.Preco.ToString("C")</p>
-            <p>Lanche: @lanche.Nome </p>
-            <p>@lanche.DescricaoCurta </p>
-        </div>
-    </div>
+    @*@await Html.PartialAsync("_LanchesResumo", lanche);  HTML HELPER *@
+    <partial name="_LanchesResumo" model="lanche" />    @* TAG  HELPER *@
 }

@@ -1,0 +1,12 @@
+﻿@model Lanche
+
+<div class="col-6">
+    <div class="img-thumbnail text-center">
+        <img src="@Model.ImagemUrl" alt="Foto do lanche" class="objectImage" />
+    </div>
+    <div class="figure-caption">
+        <p class="float-right">Preço: @Model.Preco.ToString("C")</p>
+        <p>Lanche: @Model.Nome </p>
+        <p>@Model.DescricaoCurta </p>
+    </div>
+</div>

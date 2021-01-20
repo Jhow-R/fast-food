@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace FastFood
 {
+    // Startup.cs equivalente ao Global.asax.
+    // Contém o código de inicialização e configuração.
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -20,6 +22,7 @@ namespace FastFood
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // Contém a lista de serviços da aplicação
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvc(); -- Versão 3.1
@@ -36,6 +39,7 @@ namespace FastFood
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Recebe o IApplicationBuilder onde pode se configurar o ambiente, página de erros, etc;
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
