@@ -19,7 +19,7 @@ namespace FastFood.Data.Repository
         public IEnumerable<Lanche> Lanches => _context.Lanches.Include(l => l.Categoria);
 
         public IEnumerable<Lanche> LanchesFavoritos => _context.Lanches
-            .Where(l => l.IsLancheFavorito == true)
+            .Where(l => l.IsLancheFavorito)
             .Include(l => l.Categoria);
 
         public Lanche GetLanchesById(int lancheId) => _context.Lanches

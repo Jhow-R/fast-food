@@ -1,15 +1,22 @@
-﻿@model IEnumerable<FastFood.Models.Lanche>
+﻿@model LanchesListViewModel
 
 @{
     ViewData["Title"] = ViewData["Lanche"];
     ViewData["Title"] = ViewBag.Lanche;
 }
 
-<h1>Todos os lanches</h1>
+<h1>@Model.CategoriaAtual</h1>
 
-@foreach (var lanche in Model)
+@foreach (var lanche in Model.Lanches)
 {
-    <p>Lanche: @lanche.Nome </p>
-    <p><img src="@lanche.ImagemUrl" alt="Foto do lanche" class="objectImage" /></p>
-    <p>Preço: @lanche.Preco.ToString("C")</p> 
+    <div class="col-6">
+        <div class="img-thumbnail text-center">
+            <img src="@lanche.ImagemUrl" alt="Foto do lanche" class="objectImage" />
+        </div>
+        <div class="figure-caption">
+            <p class="float-right">Preço: @lanche.Preco.ToString("C")</p>
+            <p>Lanche: @lanche.Nome </p>
+            <p>@lanche.DescricaoCurta </p>
+        </div>
+    </div>
 }

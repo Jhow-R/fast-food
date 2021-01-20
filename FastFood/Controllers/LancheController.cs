@@ -1,4 +1,5 @@
 ﻿using FastFood.Data.Repository.Interfaces;
+using FastFood.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FastFood.Controllers
@@ -19,8 +20,13 @@ namespace FastFood.Controllers
             ViewBag.Lanche = "Lanches";
             ViewData["Lanche"] = "Lanches";
 
-            var lanches = _lancheRepository.Lanches;
-            return View(lanches);
+            var lanchesListViewModel = new LanchesListViewModel()
+            {
+                Lanches = _lancheRepository.Lanches,
+                CategoriaAtual = "Categoria Atual"
+            };
+
+            return View(lanchesListViewModel);
         }
     }
 }
