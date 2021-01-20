@@ -1,8 +1,10 @@
 using FastFood.Data.Context;
 using FastFood.Data.Repository;
 using FastFood.Data.Repository.Interfaces;
+using FastFood.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +29,7 @@ namespace FastFood
         {
             //services.AddMvc(); -- Versão 3.1
 
-            // Habilitar refreshing após mudanças na view
+            // AddRazorRuntimeCompilation(): habilitar refreshing após mudanças na view
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<AppDbContext>(options =>
@@ -36,6 +38,13 @@ namespace FastFood
             // AddTransient: não necessitamos manter estado de nada dentro dele, ou seja, a cada injeção, será uma nova instância resolvida
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
+
+            // AddSingleton: objeto será o mesmo para todas as requisições
+            // HttpContextAccessor: ter acesso a sessão do contexto
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // AddScoped: objeto é o mesmo dentro de um request, mas diferente através de diferentes requests
+            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,10 +63,9 @@ namespace FastFood
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
