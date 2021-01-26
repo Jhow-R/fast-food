@@ -76,6 +76,12 @@ namespace FastFood
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "filtrarPorCategoria",
+                    pattern: "Lanche/{action}/{categoria}",
+                    defaults: new { Controller = "Lanche", Action = "List" }
+                    );
             });
 
             /* -- Versão 3.1
