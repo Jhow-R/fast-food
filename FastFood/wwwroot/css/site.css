@@ -8,6 +8,10 @@ for details on configuring this project to bundle and minify static web assets. 
     object-position: center;
 }
 
+.checkoutForm {
+    margin-top: 5%;
+}
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;

@@ -1,5 +1,6 @@
 ﻿using FastFood.Data.Context;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace FastFood.Models
             };
         }
 
-        public void AdicionarAoCarrinho(Lanche lanche, int quantidade)
+        public void AdicionarAoCarrinho(Lanche lanche)
         {
             // Obtém o lanche de um carrinho especificado
             var carrinhoCompraItem =
@@ -62,7 +63,7 @@ namespace FastFood.Models
             }
             else
                 carrinhoCompraItem.Quantidade++;
-   
+
             _context.SaveChanges();
         }
 
@@ -103,5 +104,10 @@ namespace FastFood.Models
             .Where(c => c.CarrinhoCompraId == Id)
             .Select(c => c.Lanche.Preco * c.Quantidade)
             .Sum();
+
+        public List<CarrinhoCompraItem> GetCarrinhoCompraItens() => CarrinhoCompraItens ??= 
+            _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id)
+            .Include(c => c.Lanche)
+            .ToList();
     }
 }
