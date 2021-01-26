@@ -1,6 +1,7 @@
 ﻿using FastFood.Models;
 using FastFood.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace FastFood.Components
 {
@@ -16,7 +17,12 @@ namespace FastFood.Components
 
         public IViewComponentResult Invoke()
         {
-            var itens = _carrinhoCompras.GetCarrinhoCompraItens();
+            //var itens = _carrinhoCompras.GetCarrinhoCompraItens();
+            var itens = new List<CarrinhoCompraItem>
+            {
+                new CarrinhoCompraItem(),
+                new CarrinhoCompraItem()
+            };
             _carrinhoCompras.CarrinhoCompraItens = itens;
 
             var carrinhoComprasViewModel = new CarrinhoComprasViewModel
