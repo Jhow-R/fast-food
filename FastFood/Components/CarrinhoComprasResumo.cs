@@ -1,10 +1,10 @@
 ﻿using FastFood.Models;
 using FastFood.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace FastFood.Components
 {
+    [ViewComponent]
     public class CarrinhoComprasResumo : ViewComponent
     {
         private readonly CarrinhoCompras _carrinhoCompras;
@@ -16,13 +16,7 @@ namespace FastFood.Components
 
         public IViewComponentResult Invoke()
         {
-            //var itens = _carrinhoCompras.GetCarrinhoCompraItens();
-            var itens = new List<CarrinhoCompraItem>
-            {
-                new CarrinhoCompraItem(),
-                new CarrinhoCompraItem()
-            };
-
+            var itens = _carrinhoCompras.GetCarrinhoCompraItens();
             _carrinhoCompras.CarrinhoCompraItens = itens;
 
             var carrinhoComprasViewModel = new CarrinhoComprasViewModel
