@@ -1,0 +1,16 @@
+﻿@model LanchesListViewModel
+
+@{
+    ViewData["Title"] = ViewData["Lanche"];
+    ViewData["Title"] = ViewBag.Lanche;
+}
+
+<h1>@Model.CategoriaAtual</h1>
+
+<div class="row">
+    @foreach (var lanche in Model.Lanches)
+    {
+        @*@await Html.PartialAsync("_LanchesResumo", lanche);  HTML HELPER *@
+        <partial name="_LanchesResumo" model="lanche" /> @* TAG  HELPER *@
+    }
+</div>
