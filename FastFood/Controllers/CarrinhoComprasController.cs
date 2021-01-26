@@ -9,10 +9,10 @@ namespace FastFood.Controllers
     public class CarrinhoComprasController : Controller
     {
         private readonly ILancheRepository _lancheRepository;
-        private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly CarrinhoCompras _carrinhoCompra;
 
         public CarrinhoComprasController(ILancheRepository lancheRepository,
-                                        CarrinhoCompra carrinhoCompra)
+                                        CarrinhoCompras carrinhoCompra)
         {
             _lancheRepository = lancheRepository;
             _carrinhoCompra = carrinhoCompra;

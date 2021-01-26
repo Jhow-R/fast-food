@@ -1,0 +1,14 @@
+﻿@model CarrinhoComprasViewModel
+
+@if (Model.CarrinhoCompra.CarrinhoCompraItens.Count > 0)
+{
+    <li class="mt-2">
+        <a asp-controller="CarrinhoCompra">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-status">
+                @Model.CarrinhoCompra.CarrinhoCompraItens.Count
+            </span>
+        </a>
+    </li>
+}
+

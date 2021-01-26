@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace FastFood.Models
 {
-    public class CarrinhoCompra
+    public class CarrinhoCompras
     {
         private const string CarrinhoIdSessionKey = "CarrinhoId";
         private readonly AppDbContext _context;
@@ -16,12 +16,12 @@ namespace FastFood.Models
         public string Id { get; set; }
         public List<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
 
-        private CarrinhoCompra(AppDbContext context)
+        private CarrinhoCompras(AppDbContext context)
         {
             _context = context;
         }
 
-        public static CarrinhoCompra GetCarrinho(IServiceProvider service)
+        public static CarrinhoCompras GetCarrinho(IServiceProvider service)
         {
             // Define uma sessão acessando o contexto atual (tem que registrar em IServicesCollection)
             ISession session = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
@@ -36,7 +36,7 @@ namespace FastFood.Models
             session.SetString(CarrinhoIdSessionKey, carrinhoId);
 
             // Retorna o carrinho com o contexto atual e o Id atribuído ou obtido
-            return new CarrinhoCompra(context)
+            return new CarrinhoCompras(context)
             {
                 Id = carrinhoId
             };

@@ -40,7 +40,7 @@ namespace FastFood
             services.AddTransient<ILancheRepository, LancheRepository>();
 
             // AddScoped: objeto é o mesmo dentro de um request, mas diferente através de diferentes requests
-            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
+            services.AddScoped(cp => CarrinhoCompras.GetCarrinho(cp));
 
             // AddSingleton: objeto será o mesmo para todas as requisições
             // HttpContextAccessor: ter acesso a sessão do contexto

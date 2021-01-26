@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - FastFood</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
 </head>
 <body>
     <header>
@@ -27,6 +28,8 @@
                         <li class="nav-item" style="display: none">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        
+                        @await Component.InvokeAsync("CarrinhoComprasResumo")
                     </ul>
                 </div>
             </div>
