@@ -42,13 +42,18 @@ namespace FastFood.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult RemoverItemNoCarrinhoCompra(int lancheId)
+        public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.Id == lancheId);
 
             if (lancheSelecionado is not null)
                 _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult List()
+        {
             return RedirectToAction(nameof(Index));
         }
     }

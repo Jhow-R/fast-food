@@ -4,7 +4,6 @@
 
     <a href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown">
         Lanches
-        <span class="caret"></span>
     </a>
 
     <ul class="dropdown-menu">
@@ -12,13 +11,13 @@
         {
             <li class="dropdown-item">
                 <a asp-controller="Lanches" asp-action="List"
-                   asp-route-categoria="@categoria.Nome">@categoria.Nome</a>
+                   asp-route-categoria="@categoria.Nome" style="text-decoration: none">@categoria.Nome</a>
             </li>
         }
 
         <li class="dropdown-divider"></li>
         <li class="dropdown-item">
-            <a asp-controller="Lanches" asp-action="List" asp-route-categoria="@String.Empty">Ver todos os lanches</a>
+            <a asp-controller="Lanches" asp-action="List" asp-route-categoria="@String.Empty" style="text-decoration: none">Ver todos os lanches</a>
         </li>
     </ul>
 </li>

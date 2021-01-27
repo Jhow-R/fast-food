@@ -3,7 +3,7 @@
 @if (Model.CarrinhoCompra.CarrinhoCompraItens.Count > 0)
 {
     <li class="nav-link">
-        <a asp-controller="CarrinhoCompra">
+        <a asp-controller="CarrinhoCompras">
             <i class="fas fa-shopping-cart"></i>
             <span id="cart-status">
                 @Model.CarrinhoCompra.CarrinhoCompraItens.Count
@@ -11,4 +11,3 @@
         </a>
     </li>
 }
-

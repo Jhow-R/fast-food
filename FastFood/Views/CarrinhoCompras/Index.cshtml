@@ -1,15 +1,19 @@
 ﻿@model CarrinhoComprasViewModel
 
-<div class="row checkoutForm">
-    <h2>Seu carrinho de compras</h2>
-    <h4>Aqui estão os seus pedidos</h4>
+@{
+    ViewData["Title"] = "Carrinho de Compras";
+}
+
+<h1 class="row">Seu carrinho de compras</h1>
+<h2 class="row">Aqui estão os seus pedidos</h2>
+<div class="row">
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Quantidade</th>
-                <th>Lanche</th>
-                <th class="text-right">Preço</th>
-                <th class="text-right">Subtotal</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Lanche</th>
+                <th scope="col" class="text-right">Preço</th>
+                <th scope="col" class="text-right">Subtotal</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,11 +23,9 @@
                 <tr>
                     <td class="text-center">@item.Quantidade</td>
                     <td class="text-left">@item.Lanche.Nome</td>
-                    <td class="text-right">@item.Lanche.Preco.ToString("c")</td>
-                    <td class="text-right">
-                        @((item.Quantidade * item.Lanche.Preco).ToString("c"))
-                    </td>
-                    <td class="text-center"><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra" asp-route-lancheId="@item.Lanche.Id"></a></td>
+                    <td class="text-right">@item.Lanche.Preco.ToString("C")</td>
+                    <td class="text-right"> @((item.Quantidade * item.Lanche.Preco).ToString("C")) </td>
+                    <td class="text-center"><a class="fas fa-trash-alt text-danger" asp-controller="CarrinhoCompras" asp-action="RemoverItemDoCarrinhoCompra" asp-route-lancheId="@item.Lanche.Id"></a></td>
                 </tr>
             }
         </tbody>
@@ -31,24 +33,28 @@
             <tr>
                 <td colspan="3" class="text-right">Total:</td>
                 <td class="text-right">
-                    @Model.CarrinhoCompraTotal.ToString("c")
+                    @Model.CarrinhoCompraTotal.ToString("C")
                 </td>
             </tr>
         </tfoot>
     </table>
+</div>
 
-    <div class="text-right">
-        <div class="btn-group ">
-            <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
-            <a class="btn-group">
-                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Adicionar mais lanches<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a asp-controller="Lanche" asp-action="List" asp-route-categoria="Normal">Normal</a></li>
-                    <li><a asp-controller="Lanche" asp-action="List" asp-route-categoria="Natural">Natural</a></li>
-                </ul>
-            </a>
+
+<div class="float-right">
+    <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
+</div>
+
+<div class="float-left">
+    <div class="dropdown show">
+        <a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
+            Adicionar mais lanches
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+            <a class="dropdown-item" asp-controller="Lanches" asp-action="List" asp-route-categoria="Normal">Normal</a>
+            <a class="dropdown-item" asp-controller="Lanches" asp-action="List" asp-route-categoria="Natural">Natural</a>
         </div>
     </div>
 </div>
+

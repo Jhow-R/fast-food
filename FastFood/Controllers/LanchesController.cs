@@ -49,5 +49,15 @@ namespace FastFood.Controllers
 
             return View(lanchesListViewModel);
         }
+
+        public IActionResult Details(int lancheId)
+        {
+            var lanche = _lancheRepository.Lanches.FirstOrDefault(l => l.Id.Equals(lancheId));
+
+            if (lanche is null)
+                return View("~/Views/Error/Error.cshtml");
+
+            return View(lanche);
+        }
     }
 }

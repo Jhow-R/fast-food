@@ -5,8 +5,14 @@
         <img src="@Model.ImagemUrl" alt="Foto do lanche" class="objectImage" />
     </div>
     <div class="figure-caption">
-        <p class="float-right">Preço: @Model.Preco.ToString("C")</p>
-        <p>Lanche: @Model.Nome </p>
-        <p>@Model.DescricaoCurta </p>
+        <div class="float-left">
+            <p><a asp-controller="Lanches" asp-action="Details" asp-route-lancheId="@Model.Id">@Model.Nome</a></p>
+            <p>@Model.DescricaoCurta </p>
+        </div>
+
+        <div class="float-right">
+            <p class="text-right">Preço: @Model.Preco.ToString("C")</p>
+            <a class="btn btn-primary mb-3" asp-controller="CarrinhoCompras" asp-action="AdicionarItemNoCarrinhoCompra" asp-route-lancheId="@Model.Id">Incluir no Carrinho</a>
+        </div>
     </div>
 </div> 

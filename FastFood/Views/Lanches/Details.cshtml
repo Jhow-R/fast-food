@@ -1,0 +1,29 @@
+﻿@model FastFood.Models.Lanche
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="card">
+        <div class="text-center view overlay hm-white-slight">
+            <img src="@Model.ImagemUrl" class="img-fluid" alt="Foto do lanche">
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">@Model.Nome</h1>
+            <p class="card-text"><h3>@Model.DescricaoDetalhada</h3></p>
+
+            <div class="float-left">
+                <a class="btn btn-primary" asp-controller="CarrinhoCompras" asp-action="AdicionarItemNoCarrinhoCompra" asp-route-lancheId="@Model.Id">
+                    Adicionar ao carrinho
+                </a>
+            </div>
+            
+            <div class="float-right">
+                <a asp-controller="Lanche" asp-action="List" class="btn btn-light">Ver todos os lanches</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
