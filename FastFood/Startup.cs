@@ -38,6 +38,7 @@ namespace FastFood
             // AddTransient: não necessitamos manter estado de nada dentro dele, ou seja, a cada injeção, será uma nova instância resolvida
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
 
             // AddScoped: objeto é o mesmo dentro de um request, mas diferente através de diferentes requests
             services.AddScoped(cp => CarrinhoCompras.GetCarrinho(cp));
