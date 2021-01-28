@@ -40,7 +40,7 @@ namespace FastFood.Controllers
                 lanches = _lancheRepository.Lanches.OrderBy(l => l.Id);
                 categoriaAtual = "Todos os lanches";
             }
-                
+
             var lanchesListViewModel = new LanchesListViewModel()
             {
                 Lanches = lanches,
@@ -58,6 +58,26 @@ namespace FastFood.Controllers
                 return View("~/Views/Error/Error.cshtml");
 
             return View(lanche);
+        }
+
+        public IActionResult Search(string searchString)
+        {
+            IEnumerable<Lanche> lanches;
+
+            if (String.IsNullOrEmpty(searchString) is false)
+                lanches = _lancheRepository.Lanches.Where(l => l.Nome.Contains(searchString, StringComparison.InvariantCultureIgnoreCase));
+            else
+                lanches = _lancheRepository.Lanches.OrderBy(l => l.Id);
+
+            var viewModel = new LanchesListViewModel
+            {
+                Lanches = lanches,
+                CategoriaAtual = lanches.Count().Equals(default(int)) 
+                ? "Nenhum lanche encontrado" 
+                : "Todos os lanches"
+            };
+
+            return View("~/Views/Lanches/List.cshtml", viewModel);
         }
     }
 }
