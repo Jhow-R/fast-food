@@ -33,16 +33,16 @@ namespace FastFood.Controllers
             if (ModelState.IsValid)
             {
                 _pedidoRepository.CriarPedido(pedido);
+
+                ViewBag.CheckoutCompletoMensagem = "Pedido feito com sucesso!";
+                ViewBag.TotalPedido = _carrinhoCompras.GetCarrinhoCompraTotal();
+
                 _carrinhoCompras.LimparCarrinho();
-                return RedirectToAction(nameof(CheckoutCompleto));
+                
+                return View("~/Views/Pedidos/CheckoutCompleto.cshtml", pedido);
             }
 
             return View(pedido);
-        }
-
-        public IActionResult CheckoutCompleto()
-        {
-            return View();
         }
     }
 }

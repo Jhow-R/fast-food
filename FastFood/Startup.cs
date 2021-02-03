@@ -29,8 +29,11 @@ namespace FastFood
         {
             //services.AddMvc(); -- Versão 3.1
 
-            // AddRazorRuntimeCompilation(): habilitar refreshing após mudanças na view
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews()
+                // AddRazorRuntimeCompilation(): habilitar refreshing após mudanças na view
+                .AddRazorRuntimeCompilation()
+                // AddNewtonsoftJson(): erro de serialização no TempData "cannot serialize an object of type"
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

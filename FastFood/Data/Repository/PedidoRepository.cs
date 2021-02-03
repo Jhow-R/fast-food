@@ -20,6 +20,7 @@ namespace FastFood.Data.Repository
         {
             pedido.PedidoEnviado = DateTime.Now; 
             _context.Pedidos.Add(pedido);
+            _context.SaveChanges();
 
             var carrinhoCompraItens = _carrinhoCompras.CarrinhoCompraItens;
             foreach (var item in carrinhoCompraItens)
