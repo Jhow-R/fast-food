@@ -52,5 +52,34 @@ namespace FastFood.Controllers
             ModelState.AddModelError(String.Empty, "Credencias inválidas ou não localizadas");
             return View(viewModel);
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(LoginViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser() { UserName = viewModel.Username };
+                var result = await _userManager.CreateAsync(user, viewModel.Password);
+
+                if (result.Succeeded)
+                    return RedirectToAction(nameof(Index), nameof(HomeController));
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Index), nameof(HomeController));
+        }
     }
 }
