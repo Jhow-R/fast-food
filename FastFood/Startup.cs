@@ -5,6 +5,7 @@ using FastFood.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,13 @@ namespace FastFood
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // Serviço de identity
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                // Adiciona uma implementação do EF que armazena as informações de indentidade
+                .AddEntityFrameworkStores<AppDbContext>()
+                // Adiciona os tokens que cuida da troca de senha e envio de email
+                .AddDefaultTokenProviders();
+
             // AddTransient: não necessitamos manter estado de nada dentro dele, ou seja, a cada injeção, será uma nova instância resolvida
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
@@ -69,11 +77,14 @@ namespace FastFood
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Midlewares
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
