@@ -40,7 +40,21 @@ namespace FastFood
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Serviço de identity
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                /* Por padrão, se não for personalizado nada, o Identity configurará um conjunto padrão de regras de validação para novas senhas:
+                    - As senhas devem ter pelo menos 6 caracteres
+                    - As senhas devem ter pelo menos uma letra minúscula ('a' - 'z')
+                    - As senhas devem ter pelo menos uma letra maiúscula ('A' - 'Z')
+                    - As senhas devem ter pelo menos um dígito ('0' - '9')
+                    - As senhas devem ter pelo menos um caractere não alfanumérico
+                */
+                options.Password.RequiredLength = 3;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            })
                 // Adiciona uma implementação do EF que armazena as informações de indentidade
                 .AddEntityFrameworkStores<AppDbContext>()
                 // Adiciona os tokens que cuida da troca de senha e envio de email

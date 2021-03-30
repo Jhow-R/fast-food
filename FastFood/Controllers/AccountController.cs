@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FastFood.Controllers
@@ -43,7 +44,7 @@ namespace FastFood.Controllers
                 if (result.Succeeded)
                 {
                     if (String.IsNullOrEmpty(viewModel.ReturnUrl))
-                        return RedirectToAction(nameof(Index), nameof(HomeController));
+                        return RedirectToAction(nameof(Index), "Home");
 
                     return RedirectToAction(viewModel.ReturnUrl);
                 }
@@ -69,7 +70,10 @@ namespace FastFood.Controllers
                 var result = await _userManager.CreateAsync(user, viewModel.Password);
 
                 if (result.Succeeded)
-                    return RedirectToAction(nameof(Index), nameof(HomeController));
+                    return RedirectToAction(nameof(Index), "Home");
+
+                var errors = result.Errors.Select(x => x.Description).Aggregate((concat, str) => $"{concat} {str}");
+                ModelState.AddModelError(String.Empty, errors);
             }
 
             return View(viewModel);
@@ -79,7 +83,7 @@ namespace FastFood.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Index), nameof(HomeController));
+            return RedirectToAction(nameof(Index), "Home");
         }
     }
 }
