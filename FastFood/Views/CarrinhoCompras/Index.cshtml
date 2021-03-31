@@ -51,10 +51,12 @@
             Adicionar mais lanches
         </a>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" asp-controller="Lanches" asp-action="List" asp-route-categoria="Normal">Normal</a>
             <a class="dropdown-item" asp-controller="Lanches" asp-action="List" asp-route-categoria="Natural">Natural</a>
         </div>
+
+        @await Component.InvokeAsync("CategoriaMenu")
     </div>
 </div>
 

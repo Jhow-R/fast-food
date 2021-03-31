@@ -27,18 +27,18 @@ namespace FastFood.Controllers
             string categoriaAtual = String.Empty;
             IEnumerable<Lanche> lanches;
 
-            if (String.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase) || String.Equals("Natural", categoria, StringComparison.OrdinalIgnoreCase))
-            {
-                lanches = _lancheRepository.Lanches
-                    .Where(l => l.Categoria.Nome.Equals(categoria, StringComparison.OrdinalIgnoreCase))
-                    .OrderBy(l => l.Nome);
-
-                categoriaAtual = Char.ToUpper(categoria[0]) + categoria.Substring(1);
-            }
-            else
+            if (String.IsNullOrEmpty(categoria))
             {
                 lanches = _lancheRepository.Lanches.OrderBy(l => l.Id);
                 categoriaAtual = "Todos os lanches";
+            }
+            else
+            {
+                lanches = _lancheRepository.Lanches
+                            .Where(p => p.Categoria.Nome.Equals(categoria))
+                            .OrderBy(p => p.Nome);
+
+                categoriaAtual = Char.ToUpper(categoria[0]) + categoria.Substring(1);
             }
 
             var lanchesListViewModel = new LanchesListViewModel()
@@ -72,8 +72,8 @@ namespace FastFood.Controllers
             var viewModel = new LanchesListViewModel
             {
                 Lanches = lanches,
-                CategoriaAtual = lanches.Count().Equals(default(int)) 
-                ? "Nenhum lanche encontrado" 
+                CategoriaAtual = lanches.Count().Equals(default(int))
+                ? "Nenhum lanche encontrado"
                 : "Todos os lanches"
             };
 
