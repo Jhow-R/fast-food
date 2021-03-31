@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace FastFood.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminCategoriasController : Controller
     {
         private readonly AppDbContext _context;

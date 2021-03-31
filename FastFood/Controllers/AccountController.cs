@@ -71,7 +71,11 @@ namespace FastFood.Controllers
                 var result = await _userManager.CreateAsync(user, viewModel.Password);
 
                 if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Member");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction(nameof(Index), "Home");
+                }
 
                 var errors = result.Errors.Select(x => x.Description).Aggregate((concat, str) => $"{concat} {str}");
                 ModelState.AddModelError(String.Empty, errors);
