@@ -103,6 +103,10 @@ namespace FastFood
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "AdminArea",
+                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "filtrarPorCategoria",
                     pattern: "Lanches/{action}/{categoria?}",
                     defaults: new { Controller = "Lanches", Action = "List" });

@@ -8,7 +8,7 @@ namespace FastFood.Models
 {
     public class Pedido
     {
-        [BindNever] // BindNever: impede que a propriedade seja vinculada ao formulário
+        //[BindNever] impede que a propriedade seja vinculada ao formulário
         public int Id { get; set; }
         public virtual List<PedidoDetalhe> PedidoItens { get; set; }
 
@@ -59,8 +59,16 @@ namespace FastFood.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal PedidoTotal { get; set; }
 
-        [BindNever]
-        [ScaffoldColumn(false)]
+        //[BindNever]
+        //[ScaffoldColumn(false)]
+        [Display(Name = "Data/Hora de Entrega do Pedido")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime PedidoEnviado { get; set; }
+
+        [Display(Name ="Data/Hora de Entrega do Pedido")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
+        public DateTime? PedidoEntregueEm { get; set; }
     }
 }
