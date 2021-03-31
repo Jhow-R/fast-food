@@ -1,4 +1,5 @@
 ﻿using FastFood.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -46,7 +47,7 @@ namespace FastFood.Controllers
                     if (String.IsNullOrEmpty(viewModel.ReturnUrl))
                         return RedirectToAction(nameof(Index), "Home");
 
-                    return RedirectToAction(viewModel.ReturnUrl);
+                    return Redirect(viewModel.ReturnUrl);
                 }
             }
 
@@ -79,6 +80,7 @@ namespace FastFood.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

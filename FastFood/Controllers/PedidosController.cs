@@ -1,5 +1,6 @@
 ﻿using FastFood.Data.Repository.Interfaces;
 using FastFood.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -16,11 +17,19 @@ namespace FastFood.Controllers
             _carrinhoCompras = carrinhoCompras;
         }
 
+        [Authorize]
         public IActionResult Checkout()
         {
+            var items = _carrinhoCompras.GetCarrinhoCompraItens();
+            _carrinhoCompras.CarrinhoCompraItens = items;
+
+            if (_carrinhoCompras.CarrinhoCompraItens.Count == 0)
+                ModelState.AddModelError(String.Empty, "Seu carrinho está vazio");
+
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {
