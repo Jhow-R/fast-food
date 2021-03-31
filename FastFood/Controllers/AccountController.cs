@@ -1,4 +1,5 @@
-﻿using FastFood.Models.ViewModels;
+﻿using FastFood.Models;
+using FastFood.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,14 @@ namespace FastFood.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
+        private readonly CarrinhoCompras _carrinhoCompra;
         public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            CarrinhoCompras carrinhoCompra)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _carrinhoCompra = carrinhoCompra;
         }
 
         [HttpGet]
@@ -89,6 +92,7 @@ namespace FastFood.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            _carrinhoCompra.LimparCarrinho();
             return RedirectToAction(nameof(Index), "Home");
         }
     }

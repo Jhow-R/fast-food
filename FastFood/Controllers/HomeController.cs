@@ -26,9 +26,8 @@ namespace FastFood.Controllers
             return View(homeViewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult AccessDenied() => View();
+
+        public IActionResult Privacy()  => View();
     }
 }

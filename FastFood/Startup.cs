@@ -60,6 +60,8 @@ namespace FastFood
                 // Adiciona os tokens que cuida da troca de senha e envio de email
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AccessDenied");
+
             // AddTransient: não necessitamos manter estado de nada dentro dele, ou seja, a cada injeção, será uma nova instância resolvida
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();

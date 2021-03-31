@@ -36,7 +36,11 @@
                             </li>
                         }
 
-                        @await Component.InvokeAsync("CarrinhoComprasResumo")
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @await Component.InvokeAsync("CarrinhoComprasResumo")
+                        }
+
                     </ul>
 
                     <form class="navbar-form navbar-right" asp-controller="Lanches" asp-action="Search" method="get">
