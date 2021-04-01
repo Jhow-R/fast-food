@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FastFood.Data.Context;
 using FastFood.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
+using ReflectionIT.Mvc.Paging;
 
 namespace FastFood.Areas.Admin.Controllers
 {
@@ -23,10 +25,25 @@ namespace FastFood.Areas.Admin.Controllers
         }
 
         // GET: Admin/Lanches
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var appDbContext = _context.Lanches.Include(l => l.Categoria);
             return View(await appDbContext.ToListAsync());
+        }*/
+
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
+        {
+            var resultado = _context.Lanches
+                .Include(l => l.Categoria)
+                .AsQueryable();
+
+            if (!String.IsNullOrWhiteSpace(filter))
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+
+            var model = await PagingList.CreateAsync(resultado, 3, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            return View(model);
         }
 
         // GET: Admin/Lanches/Details/5

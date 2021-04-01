@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FastFood.Data.Context;
+using FastFood.Models;
+using FastFood.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FastFood.Data.Context;
-using FastFood.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FastFood.Areas.Admin.Controllers
 {
@@ -22,10 +23,42 @@ namespace FastFood.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Pedidoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
         {
-            return View(await _context.Pedidos.ToListAsync());
+            var resultado = _context.Pedidos
+                .AsNoTracking()
+               .AsQueryable();
+
+
+            if (!String.IsNullOrWhiteSpace(filter))
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            return View(model);
+        }
+
+        public IActionResult LanchesPedidoDetalhes(int? id)
+        {
+            var pedido = _context.Pedidos
+                          .Include(pd => pd.PedidoItens)
+                          .ThenInclude(l => l.Lanche)
+                          .FirstOrDefault(p => p.Id == id);
+
+            if (pedido is null)
+            {
+                Response.StatusCode = 404;
+                return View("PedidoNotFound", id.Value);
+            }
+
+            PedidoLancheViewModel pedidoLanches = new PedidoLancheViewModel()
+            {
+                Pedido = pedido,
+                PedidoDetalhes = pedido.PedidoItens
+            };
+
+            return View(pedidoLanches);
         }
 
         // GET: Admin/Pedidoes/Details/5

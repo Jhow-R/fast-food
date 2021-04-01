@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Major Code Smell", "S125:Sections of code should not be commented out", Justification = "<Pendente>", Scope = "member", Target = "~M:FastFood.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)")]
+[assembly: SuppressMessage("Major Code Smell", "S125:Sections of code should not be commented out", Justification = "<Pendente>", Scope = "member", Target = "~M:FastFood.Areas.Admin.Controllers.AdminLanchesController.Index(System.String,System.Int32,System.String)~System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.IActionResult}")]
