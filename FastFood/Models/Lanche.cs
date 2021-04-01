@@ -30,7 +30,8 @@ namespace FastFood.Models
         public bool EmEstoque { get; set; }
         public int CategoriaId { get; set; }
 
-        // O modificador virtual é utilizado pelo EF para fazer o Lazy Loading: https://pt.stackoverflow.com/questions/52908/qual-a-diferen%C3%A7a-entre-usar-propriedade-virtual-ou-n%C3%A3o-no-ef
+        // O modificador virtual é utilizado pelo EF para fazer o Lazy Loading: 
+        // https://pt.stackoverflow.com/questions/52908/qual-a-diferen%C3%A7a-entre-usar-propriedade-virtual-ou-n%C3%A3o-no-ef
         public virtual Categoria Categoria { get; set; }
     }
 }

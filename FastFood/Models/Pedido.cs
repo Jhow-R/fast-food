@@ -8,7 +8,7 @@ namespace FastFood.Models
 {
     public class Pedido
     {
-        //[BindNever] impede que a propriedade seja vinculada ao formulário
+        //[BindNever] impede que a propriedade seja vinculada, seja exibida ao usuário, sendo esta somente para uso interno
         public int Id { get; set; }
         public virtual List<PedidoDetalhe> PedidoItens { get; set; }
 
@@ -55,9 +55,15 @@ namespace FastFood.Models
         public string Email { get; set; }
         
         [BindNever]
-        [ScaffoldColumn(false)] // Indica que esse campo não vai ser visível na view
+        [ScaffoldColumn(false)] // Indica que esse campo não vai ser visível na view quando for feito Scaffold
         [Column(TypeName = "decimal(18,2)")]
+        [Display(Name = "Total do Pedido")]
         public decimal PedidoTotal { get; set; }
+        
+        [BindNever]
+        [ScaffoldColumn(false)]
+        [Display(Name = "Itens no Pedido")]
+        public int TotalItensPedido { get; set; }
 
         //[BindNever]
         //[ScaffoldColumn(false)]

@@ -1,3 +1,4 @@
+using FastFood.Areas.Admin.Services;
 using FastFood.Data.Context;
 using FastFood.Data.Repository;
 using FastFood.Data.Repository.Interfaces;
@@ -77,6 +78,7 @@ namespace FastFood
 
             // AddScoped: objeto é o mesmo dentro de um request, mas diferente através de diferentes requests
             services.AddScoped(cp => CarrinhoCompras.GetCarrinho(cp));
+            services.AddScoped<RelatorioVendasService>();
 
             // AddSingleton: objeto será o mesmo para todas as requisições
             // HttpContextAccessor: ter acesso a sessão do contexto

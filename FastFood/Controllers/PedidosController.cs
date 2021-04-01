@@ -33,11 +33,23 @@ namespace FastFood.Controllers
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {
+            decimal precoTotalPedido = 0.0m;
+            int totalItensPedido = 0;
+
             var items = _carrinhoCompras.GetCarrinhoCompraItens();
             _carrinhoCompras.CarrinhoCompraItens = items;
 
             if (_carrinhoCompras.CarrinhoCompraItens.Count == 0)
                 ModelState.AddModelError(String.Empty, "Seu carrinho está vazio");
+
+            foreach (var item in items)
+            {
+                totalItensPedido += item.Quantidade;
+                precoTotalPedido += (item.Lanche.Preco * item.Quantidade);
+            }
+
+            pedido.TotalItensPedido = totalItensPedido;
+            pedido.PedidoTotal = precoTotalPedido;
 
             if (ModelState.IsValid)
             {
